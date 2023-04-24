@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Real-time Sensor Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+      /* Add some basic styling to the webpage */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #9de9ec;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 50px;
+      }
+      th, td {
+        text-align: center;
+        padding: 8px;
+      }
+      th {
+        background-color: #ecb95a;
+        color: rgb(4, 1, 1);
+      }
+      tr:nth-child(even) {
+        background-color: #f6f5f2;
+      }
+      .chart-container {
+        width: 48%;
+        height: 400px;
+        margin: 20px 1%;
+        float: left;
+        box-sizing: border-box;
+        border: 1px solid #ab0d0d;
+        padding: 10px;
+      }
+      .chart-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      @media only screen and (max-width: 768px) {
+        /* Adjust chart container width for smaller screens */
+        .chart-container {
+          width: 98%;
+        }
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+        // Replace with your own ThingSpeak API key and channel ID
+        const API_KEY = "FBYV7VFBZMY6G92G";
+        const CHANNEL_ID = "2111814";
+
+        function updateData() {
+          // Fetch the latest data from ThingSpeak using its API
+          const url = `https://api.thingspeak.com/channels/${CHANNEL_ID}/feeds.json?api_key=${API_KEY}&results=1`;
+          $.getJSON(url, function(data) {
+            // Display the latest data in the table
+            const field1 = data.feeds[0].field1;
+            const field2 = data.feeds[0].field2;
+            const field3 = data.feeds[0].field3;
+            const field4 = data.feeds[0].field4;
+            const field5 = data.feeds[0].field5;
+
+            $("#field1").html(field1);
+            $("#field2").html(field2);
+            $("#field3").html(field3);
+            $("#field4").html(field4);
+            $("#field5").html(field5);
+          });
+        }
+
+        // Update the data every 1 second
+        setInterval(updateData, 1000);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Real-time Sensor Data</h1>
+    <table>
+      <tr>
+        <th>Voltage</th>
+        <th>Current</th>
+        <th>Energy</th>
+        <th>Motion</th>
+        <th>Cost</th>
+      </tr>
+      <tr>
+        <td id="field1"></td>
+        <td id="field2"></td>
+        <td id="field3"></td>
+        <td id="field4"></td>
+        <td id="field5"></td>
+      </tr>
+    </table>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/widgets/636974
+      "></iframe>
+    </div>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/widgets/636972?api_key=API_KEY&dynamic=true&type=gauge&title=Field+1
+      "></iframe>
+    </div>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/widgets/637245"></iframe>
+    </div>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Energy&type=line"></iframe>
+    </div>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Motion&type=line"></iframe>
+    </div>
+    <div class="chart-container">
+      <iframe src="https://thingspeak.com/channels/2111814/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+    </div>
+    <div class="chart-container" style="display: flex; align-items: center;justify-content: center;flex-direction: column;">
+      <a href="https://api.thingspeak.com/channels/2111814/feeds.xml?results=4"><button style="border: none; border-radius: 20px; width:40rem; height: 6rem; margin:10px;font-size: 50px;">Extract </button></a>
+      <a href="https://api.thingspeak.com/channels/2111814/feeds.csv" ><button style="border: none; border-radius: 20px; width:40rem; height: 6rem; margin:10px;font-size: 50px;">Date -Time </button></a>
+    </div>
+  </body>
+</html>

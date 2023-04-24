@@ -17,6 +17,22 @@ exports.add_user = (req, res) => {
   res.render("add_user");
 };
 
+exports.read = (req, res) => {
+  axios
+    .get("http://localhost:3000/api/users")
+    .then(function (response) {
+      console.log(response);
+      res.render("read");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.datafeeds = (req, res) => {
+  res.render("datafeeds");
+};
+
 exports.update_user = (req, res) => {
   axios
     .get("http://localhost:3000/api/users", { params: { id: req.query.id } }) // To get single user data

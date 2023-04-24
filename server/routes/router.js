@@ -10,10 +10,13 @@ const controller = require("../controller/controller");
 route.get("/", services.homeRoutes);
 route.get("/add_user", services.add_user);
 route.get("/update-user", services.update_user);
+route.get("/datafeeds", services.datafeeds);
+route.get("/read", services.read);
 
 //API
 route.post("/api/users", controller.create); //The post method is used to add a new resource to main resource
 route.get("/api/users", controller.find);
 route.put("/api/users/:id", controller.update); //url parameters
 route.delete("/api/users/:id", controller.delete);
+// route.post("/api/users", controller.read);
 module.exports = route;

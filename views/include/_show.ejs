@@ -1,7 +1,7 @@
 <% for(var i=0; i<users.length;i++){ %>
 <tr>
     <td><%= i+1 %></td>
-    <td><%= users[i].name %></td>
+    <td><a href="datafeeds"><%= users[i].name %></a></td>
     <td><%= users[i].email %></td>
     <td><%= users[i].gender %></td>
     <td><%= users[i].status %></td>
@@ -14,5 +14,7 @@
 
         </a>
     </td>
+    <td><button><a href="read">Local file</a></button></td>
+
 </tr>
 <%} %>

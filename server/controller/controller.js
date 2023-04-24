@@ -85,6 +85,8 @@ exports.update = (req, res) => {
     });
 };
 
+
+
 //Delete a user with a specified user id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
